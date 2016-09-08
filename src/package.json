@@ -8,5 +8,9 @@
     "ws": "^1.1.1",
     "snapsvg": "^0.4.0"
   },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/jf908/Sync-Click.git"
+  },
   "license": "Apache-2.0"
 }
