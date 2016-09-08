@@ -1,7 +1,7 @@
 body {
     background: rgb(53, 56, 74);
     margin: 0;
-    font-family: "Segoe UI", "Ubuntu";
+    font-family: "Segoe UI", "Lucida Grande", "Ubuntu";
     overflow: hidden;
     -webkit-user-select: none;
 }

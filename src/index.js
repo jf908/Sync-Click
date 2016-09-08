@@ -5,11 +5,12 @@ let win;
 let tray = null;
 let mode = 'none';
 const icon = process.platform == 'linux' ? `${__dirname}/icon.png` : undefined;
+const height = process.platform == 'win32' ? 500 : process.platform == 'darwin' ? 480 : 460;
 
 function createWindow() {
 	win = new BrowserWindow({
 		width: 320,
-		height: process.platform == 'win32' ? 500 : 460,
+		height: height,
 		icon: icon,
 		resizable: false
 	});
