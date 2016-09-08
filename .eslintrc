@@ -1,0 +1,18 @@
+{
+    "env": {
+        "node": true,
+        "es6": true
+    },
+    "rules": {
+        "semi": 1,
+        "no-mixed-spaces-and-tabs": 1,
+        "quotes": [1, "single"],
+
+        "arrow-body-style": [2, "as-needed"],
+
+        "no-unreachable": 2,
+        "no-extra-semi": 2,
+        "no-multi-spaces": 2,
+        "comma-dangle": 2
+    }
+}
