@@ -12,6 +12,7 @@ if(process.platform!='linux') {
 const packager = require('electron-packager');
 const options = {
     name: 'SyncClick',
+    asar: true,
     platform: process.platform,
     arch: 'x64',
     dir: 'src',
