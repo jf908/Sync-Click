@@ -3,7 +3,9 @@
 A program for clicking on multiple desktops at the same time over the internet with one simple shortcut.
 
 ## Download
-Windows | Mac | Linux
+[Windows](https://github.com/jf908/Sync-Click/releases/download/v1.2.0/SyncClick-win32-x64.zip) |
+[Mac](https://github.com/jf908/Sync-Click/releases/download/v1.2.0/SyncClick-darwin-x64.zip) |
+[Linux](https://github.com/jf908/Sync-Click/releases/download/v1.2.0/SyncClick-linux-x64.tar.gz)
 
 Note for Linux users - libappindicator1 must be installed for the tray to work.
 
