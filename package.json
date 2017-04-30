@@ -4,12 +4,15 @@
   "description": "A command-line utility for clicking on multiple desktops at the same time over the internet with one simple shortcut.",
   "main": "src/index.js",
   "scripts": {
-    "setup": "cd src && npm i",
-    "build": "node ."
+    "start": "node src"
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/jf908/Sync-Click.git"
+    "type": "git",
+    "url": "https://github.com/jf908/Sync-Click.git"
   },
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "dependencies": {
+    "robotjs": "^0.4.7",
+    "ws": "^2.3.1"
+  }
 }
