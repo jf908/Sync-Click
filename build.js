@@ -1,4 +1,6 @@
-let version = require('./package.json').devDependencies['electron-prebuilt'];
+const package = require('./package.json');
+
+let version = package.devDependencies['electron'];
 version = version.startsWith('^') ? version.substr(1) : version;
 
 let ignore = ['icon.icns'];
@@ -16,7 +18,8 @@ const options = {
     platform: process.platform,
     arch: 'x64',
     dir: 'src',
-    version: version,
+    electronVersion: version,
+    appVersion: package.version,
     out: './releases',
     overwrite: true,
     tmpdir: false,
@@ -25,9 +28,5 @@ const options = {
 };
 
 packager(options, (err) => {
-    if(err) {
-        console.log(err);
-    } else {
-        console.log('Build successful!');
-    }
+    console.log(err || 'Build successful!');
 });
