@@ -46,3 +46,9 @@ function setOverlay(view) {
     }
     overlay = view;
 }
+
+// SAVE IP ADDRESS
+document.getElementById('ip').value = localStorage.getItem('ip');
+document.getElementById('ip').addEventListener('change', e => {
+    localStorage.setItem('ip', e.target.value);
+});
