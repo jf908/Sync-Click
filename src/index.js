@@ -27,6 +27,9 @@ function createWindow() {
 	});
 }
 
+//If this listener isn't here then app quits after closing the window
+app.on('window-all-closed', () => {});
+
 app.on('ready', function() {
 	if(config.loaded) {
 		createWindow();
@@ -34,6 +37,7 @@ app.on('ready', function() {
 		config.once('load', createWindow);
 	}
 
+	//Initilize tray
 	const image = process.platform == 'win32' ? 'icon.ico' : (process.platform == 'darwin' ? 'tray_mac.png' : 'tray_linux.png' );
 	tray = new Tray(`${__dirname}/${image}`);
 	const contextMenu = Menu.buildFromTemplate([
@@ -59,17 +63,15 @@ app.on('ready', function() {
 	tray.setContextMenu(contextMenu);
 });
 
-app.on('window-all-closed', () => {
-});
-
-let robot = require('robotjs');
+const robot = require('robotjs');
+const WebSocket = require('ws');
 
 let wss;
 ipcMain.on('server', () => {
-    if(mode!='none') return;
+    if(mode != 'none') return;
 	mode = 'server';
 
-	wss = new require('ws').Server({port: config.get('port')});
+	wss = new WebSocket.Server({port: config.get('port')});
 
 	wss.broadcast = (data) => {
 		wss.clients.forEach((client) => {
@@ -83,7 +85,7 @@ ipcMain.on('server', () => {
 	});
 });
 ipcMain.on('stopServer', () => {
-	if(mode!='server') return;
+	if(mode != 'server') return;
 	mode = 'close';
 	wss.close();
 });
@@ -93,7 +95,7 @@ ipcMain.on('connect', (s,ip) => {
 	if(mode!='none') return;
 	mode = 'connecting';
 
-	ws = new require('ws')('http://'+ip);
+	ws = new WebSocket('http://'+ip);
 
 	ws.on('open', () => {
 		mode = 'client';
