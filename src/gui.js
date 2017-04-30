@@ -90,6 +90,9 @@ shortcutEl.addEventListener('keydown', e => {
     if(e.ctrlKey && e.keyCode != 17) {
         shortcut = 'Ctrl+' + shortcut;
     }
+    if(e.metaKey && e.keyCode != 1) {
+        shortcut = 'Super+' + shortcut;
+    }
     e.target.textContent = shortcut;
     shortcutChanged = true;
 });
