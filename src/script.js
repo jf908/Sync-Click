@@ -1,12 +1,38 @@
 const {ipcRenderer, remote} = require('electron');
 
+// OVERLAY
+let overlay = 'none';
+function setOverlay(view) {
+    if(view != 'none') {
+        //On settings menu open
+        document.getElementById(view).classList.remove('hidden');
+        document.getElementById('overlay').classList.remove('hidden');
+    } else if(overlay != 'none') {
+        //On settings menu close
+        document.getElementById(overlay).classList.add('hidden');
+        document.getElementById('overlay').classList.add('hidden');
+
+        if(portChanged) {
+            portChanged = false;
+            ipcRenderer.send('save', ['port', portEl.value]);
+        }
+
+        if(shortcutChanged) {
+            shortcutChanged = false;
+            ipcRenderer.send('save', ['shortcut', shortcutEl.textContent]);
+        }
+    }
+    overlay = view;
+}
+
 // NETWORKING
 
 ipcRenderer.on('mode', (s, m) => {
     setOverlay(m);
 });
-ipcRenderer.on('config', (s, port) => {
-    portEl.value = port;
+ipcRenderer.on('config', (s, config) => {
+    portEl.value = config.port;
+    shortcutEl.textContent = config.shortcut;
 });
 
 let connecting = false;
@@ -51,13 +77,4 @@ function getIP() {
 //Debug method
 ipcRenderer.on('print', (e, m) => {
     console.log(m);
-});
-
-//Port number element + listeners
-const portEl = document.getElementById('port');
-portEl.addEventListener('input', e => {
-    e.target.value = e.target.value.replace(/[^\d]/,'');
-});
-portEl.addEventListener('change', e => {
-    ipcRenderer.send('save', ['port', e.target.value]);
 });

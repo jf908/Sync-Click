@@ -6,7 +6,8 @@ class Config extends EventEmitter {
     constructor() {
         super();
         this.default = {
-            port: 7777
+            port: 7777,
+            shortcut: 'Ctrl+I'
         };
         this.path = `${app.getPath('userData')}/config.json`;
         this.loaded = false;

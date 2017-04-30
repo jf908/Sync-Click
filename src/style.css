@@ -71,6 +71,7 @@ label {
     bottom: 0;
     top: 8px;
     left: 8px;
+    font-size: 14px;
     pointer-events: none;
     color: rgba(255,255,255,.4);
     font-size: 12px;
@@ -81,7 +82,7 @@ input[type="text"]:focus+label, input[type="text"]:not(:placeholder-shown)+label
     color: rgba(255,255,255,0);
 }
 
-label:after {
+label:after, .shortcut:after {
     content: "";
     height: 2px;
     position: absolute;
@@ -89,9 +90,9 @@ label:after {
     width: 0;
     bottom: 0;
     left: -8px;
-    transition: width .5s;
+    transition: width .3s;
 }
-input[type="text"]:focus+label:after, input[type="text"]:not(:placeholder-shown)+label:after {
+input[type="text"]:focus+label:after, .shortcut:focus:after {
     width: 100%;
 }
 
@@ -123,4 +124,16 @@ input[type="text"]:focus+label:after, input[type="text"]:not(:placeholder-shown)
     display: block;
     pointer-events: none;
     opacity: 0;
+}
+
+.shortcut {
+    width: 100%;
+    padding: 8px;
+    color: white;
+    outline: none;
+    border-bottom: 1px solid rgba(255,255,255,0.4);
+    font-size: 14px;
+}
+.shortcut:after {
+    left: 0;
 }

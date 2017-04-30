@@ -18,9 +18,9 @@ function createWindow() {
 	win.loadURL(`file://${__dirname}/index.html`);
 	win.webContents.on('did-finish-load', () => {
 		win.webContents.send('mode', mode);
-		win.webContents.send('config', config.get('port'));
+		win.webContents.send('config', {port: config.get('port'), shortcut: config.get('shortcut')});
 	});
-	//win.webContents.openDevTools();
+	// win.webContents.openDevTools();
 
 	win.on('closed', function() {
 		win = null;
@@ -79,7 +79,7 @@ ipcMain.on('server', () => {
 		});
 	};
 
-	globalShortcut.register('CommandOrControl+I', () => {
+	globalShortcut.register(config.get('shortcut'), () => {
 		wss.broadcast('ply');
 		robot.mouseClick();
 	});

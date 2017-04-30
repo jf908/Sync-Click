@@ -12,7 +12,7 @@ Note for Linux users - libappindicator1 must be installed for the tray to work.
 ## How to Use
 
 One computer must host the server while the others connect to it.
-The host must press <kbd>CTRL + I</kbd> to click on all computers at once.
+The host must press <kbd>CTRL + I</kbd> (configurable) to click on all computers at once.
 Port forwarding is required; the default port is 7777 but that can be configured.
 
 ## Purpose

@@ -34,21 +34,70 @@ Icon(Snap('#settings-close'), ['M8,8 L24,24 M24,8 L8,24', 'M10,10 L22,22 M22,10 
     setOverlay('none');
 });
 
-// OVERLAY
-let overlay = 'none';
-function setOverlay(view) {
-    if(view != 'none') {
-        document.getElementById(view).classList.remove('hidden');
-        document.getElementById('overlay').classList.remove('hidden');
-    } else if(overlay != 'none') {
-        document.getElementById(overlay).classList.add('hidden');
-        document.getElementById('overlay').classList.add('hidden');
-    }
-    overlay = view;
-}
-
 // SAVE IP ADDRESS
 document.getElementById('ip').value = localStorage.getItem('ip');
 document.getElementById('ip').addEventListener('change', e => {
     localStorage.setItem('ip', e.target.value);
 });
+
+//Port number element + listeners
+let portChanged = false;
+const portEl = document.getElementById('port');
+portEl.addEventListener('input', e => {
+    e.target.value = e.target.value.replace(/[^\d]/,'');
+    portChanged = true;
+});
+
+//Shortcut modifier
+let shortcutChanged = false;
+const shortcutEl = document.getElementById('shortcut');
+shortcutEl.addEventListener('keydown', e => {
+    let shortcut = '';
+
+    //Letters + Numbers
+    if((e.keyCode >= 65 && e.keyCode <= 90) ||
+       (e.keyCode >= 48 && e.keyCode <= 57)) {
+        shortcut = String.fromCharCode(e.keyCode);
+    //F keys
+    } else if((e.keyCode >= 112 && e.keyCode <= 135)) {
+        shortcut = e.key;
+    } else {
+        const keys = {
+            9: 'Tab',
+            16: 'Shift',
+            17: 'Ctrl',
+            18: 'Alt',
+            27: 'Esc',
+            32: 'Space',
+            37: 'Left',
+            38: 'Up',
+            39: 'Right',
+            40: 'Down'
+        };
+        if(keys[e.keyCode]) {
+            shortcut = keys[e.keyCode];
+        }
+    }
+
+    if(shortcut == '') return;
+
+    if(e.altKey && e.keyCode != 18) {
+        shortcut = 'Alt+' + shortcut;
+    }
+    if(e.shiftKey && e.keyCode != 16) {
+        shortcut = 'Shift+' + shortcut;
+    }
+    if(e.ctrlKey && e.keyCode != 17) {
+        shortcut = 'Ctrl+' + shortcut;
+    }
+    e.target.textContent = shortcut;
+    shortcutChanged = true;
+});
+
+//Default button
+document.getElementById('default').addEventListener('click', () => {
+    portChanged = true;
+    shortcutChanged = true;
+    portEl.value = '7777';
+    shortcutEl.textContent = 'Ctrl+I';
+})
