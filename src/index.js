@@ -79,20 +79,22 @@ ipcMain.on('server', () => {
 		});
 	};
 
-	globalShortcut.register('CommandOrControl+I', function() {
+	globalShortcut.register('CommandOrControl+I', () => {
 		wss.broadcast('ply');
 		robot.mouseClick();
 	});
 });
 ipcMain.on('stopServer', () => {
 	if(mode != 'server') return;
-	mode = 'close';
 	wss.close();
+	globalShortcut.unregisterAll();
+
+	mode = 'none';
 });
 
 let ws;
-ipcMain.on('connect', (s,ip) => {
-	if(mode!='none') return;
+ipcMain.on('connect', (sender, ip) => {
+	if(mode != 'none') return;
 	mode = 'connecting';
 
 	ws = new WebSocket('http://'+ip);
