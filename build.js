@@ -1,12 +1,13 @@
 const package = require('./package.json');
+const platform = process.platform;
 
 let version = package.devDependencies['electron'];
 version = version.startsWith('^') ? version.substr(1) : version;
 
 let ignore = ['icon.icns'];
-if(process.platform!='win32') ignore.push('icon.ico');
-if(process.platform!='darwin') ignore.push('tray_mac.png');
-if(process.platform!='linux') {
+if(platform!='win32') ignore.push('icon.ico');
+if(platform!='darwin') ignore.push('tray_mac.png');
+if(platform!='linux') {
     ignore.push('icon.png');
     ignore.push('tray_linux.png');
 }
@@ -15,15 +16,15 @@ const packager = require('electron-packager');
 const options = {
     name: 'SyncClick',
     asar: true,
-    platform: process.platform,
+    platform: platform,
     arch: 'x64',
     dir: 'src',
     electronVersion: version,
     appVersion: package.version,
     out: './releases',
     overwrite: true,
-    tmpdir: false,
-    icon: process.platform == 'win32' ? 'src/icon.ico' : (process.platform == 'darwin' ? 'src/icon.icns' : null ),
+    tmpdir: platform == 'darwin',
+    icon: platform == 'win32' ? 'src/icon.ico' : (platform == 'darwin' ? 'src/icon.icns' : null ),
     ignore: ignore
 };
 
