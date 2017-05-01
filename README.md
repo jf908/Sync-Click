@@ -8,7 +8,7 @@ A command line interface for clicking on multiple desktops at the same time over
 host
 ```
 ```
-click
+click [seconds, default=3]
 ```
 ```
 connect <ip-address>

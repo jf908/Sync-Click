@@ -4,8 +4,7 @@ const robot = require('robotjs');
 const readline = require('readline');
 const rl = readline.createInterface({
     input: process.stdin,
-    output: process.stdout,
-    prompt: 'SyncClick>'
+    output: process.stdout
 });
 
 let mode = 'none';
@@ -19,27 +18,48 @@ const commands = {
         }
         mode = 'server';
 
+        console.log('Attempting to host...');
+
         ws = new WebSocket.Server({port: args[1] || '7777'});
         ws.broadcast = data => {
             ws.clients.forEach(client => {
                 client.send(data);
             });
 		};
+
+        ws.on('listening', () => {
+            console.log('Host setup successful');
+        });
+
+        ws.on('error', () => {
+            console.log('Hosting error');
+            ws.close();
+            mode = 'none';
+        });
     },
-    click: () => {
+    click: (args) => {
         if(mode != 'server') {
             console.log('You are not the host');
             return;
         }
 
-        console.log('Clicking in 3 seconds...');
+        let seconds = 3;
+        if(args[1]) {
+            seconds = parseInt(args[1]);
+            if(seconds <= 0 || seconds > 10) {
+                console.log('Invalid time');
+                return;
+            }
+        }
+
+        console.log(`Clicking in ${seconds} seconds...`);
         setTimeout(() => {
             //Failsafe
             if(mode == 'server') {
                 ws.broadcast('ply');
                 robot.mouseClick();
             }
-        }, 3000);
+        }, seconds * 1000);
     },
     connect: (args) => {
         if(mode != 'none') {
@@ -83,7 +103,8 @@ const commands = {
         rl.close();
     },
     help: () => {
-        console.log('Type exit to stop sync click');
+        console.log('Commands:');
+        console.log('host, click, connect, exit');
     }
 };
 
