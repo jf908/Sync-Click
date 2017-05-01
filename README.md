@@ -26,11 +26,10 @@ Well it's just like Sync Click, except it's a lot more lightweight since you can
 
 ### Setup
 
-Install [necessary depedencies](https://github.com/octalmage/robotjs#building) and node-gyp
+Install node and [these might be necessary](https://github.com/octalmage/robotjs#building).
 
 ```
 npm install
-npm run rebuild
 ```
 
 ### Run
