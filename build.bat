@@ -1,0 +1,1 @@
+g++ mouse.cpp syncclick.cpp /DWIN /I lib /Fe:SyncClick

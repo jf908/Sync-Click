@@ -1,0 +1,1 @@
+g++ -std=c++11 *.cpp -I ./lib/ -pthread -lX11 -lXtst -lXext -DX11 -o SyncClick
